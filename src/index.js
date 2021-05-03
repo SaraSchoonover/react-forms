@@ -1,3 +1,4 @@
+import { BrowserRouter as Router } from 'react-router-dom';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.scss';
@@ -7,9 +8,9 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
-  <React.Fragment>
+  <Router>
     <App />
-  </React.Fragment>,
+  </Router>,
   document.getElementById('root')
 );
 

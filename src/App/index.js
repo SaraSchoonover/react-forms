@@ -1,38 +1,64 @@
-import React, { useState } from 'react';
-import './App.scss';
+import React, { useState, useEffect } from 'react';
+import {
+  BrowserRouter as Router
+} from 'react-router-dom';
+import NavBar from '../components/NavBar';
+import { getStudents } from '../helpers/data/StudentData';
+import Routes from '../helpers/Routes';
 
 function App() {
-  const [domWriting, setDomWriting] = useState('Nothing Here!');
+  const [students, setStudents] = useState([]);
 
-  const handleClick = (e) => {
-    console.warn(`You clicked ${e.target.id}`);
-    setDomWriting(`You clicked ${e.target.id}! Check the Console!`);
-  };
+  useEffect(() => {
+    getStudents().then((resp) => setStudents(resp));
+  }, []);
 
   return (
-    <div className='App'>
-      <h2>INSIDE APP COMPONENT</h2>
-      <div>
-        <button
-          id='this-button'
-          className='btn btn-info'
-          onClick={handleClick}
-        >
-          I am THIS button
-        </button>
-      </div>
-      <div>
-        <button
-          id='that-button'
-          className='btn btn-primary mt-3'
-          onClick={handleClick}
-        >
-          I am THAT button
-        </button>
-      </div>
-      <h3>{domWriting}</h3>
-    </div>
+    <>
+    <Router>
+    <NavBar />
+    <Routes students={students}
+    setStudents={setStudents} />
+    </Router>
+    </>
   );
 }
 
 export default App;
+// import React, { useEffect, useState } from 'react';
+// import StudentCard from '../components/StudentCard';
+
+// import { getStudents } from '../helpers/data/StudentData';
+// import StudentForm from '../StudentForm';
+
+// function App() {
+//   const [students, setStudents] = useState([]);
+
+//   useEffect(() => {
+//     getStudents().then((resp) => setStudents(resp));
+//   }, []);
+
+//   return (
+//     <>
+//       <StudentForm
+//       formTitle='Add Student'
+//       setStudents={setStudents}
+//       />
+//       <hr/>
+//       <div className="card-container">
+//         {students.map((studentInfo) => (
+//           <StudentCard
+//             key={studentInfo.firebaseKey}
+//             firebaseKey={studentInfo.firebaseKey}
+//             name={studentInfo.name}
+//             teacher={studentInfo.teacher}
+//             grade={Number(studentInfo.grade)}
+//             setStudents={setStudents}
+//           />
+//         ))}
+//       </div>
+//     </>
+//   );
+// }
+
+// export default App;
